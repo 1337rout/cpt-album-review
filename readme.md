@@ -32,3 +32,6 @@ Below you will find some information on how to setup and use this plugin in a lo
 - Click Publish
 - You will now have a shortcode above the Publish Metabox that you can copy and past anywhere you would like. 
 - This shortcode can also be found in Album Review > All Album Reviews
+- You also have two other shortcodes. One to show recent album reveiws and another to show album reviews by genere.
+- To show the most recent albums you have reviewed use the shortcode <code>[recent-albums]</code>. The default amount is 5 albums. You can override this by adding the following into your shortcode. <code>[recent-albums albums="3"]</code>. Change the 3 to however many albums you would like to show. 
+- To show albums from a certain genere, you can use the shortcode like the following <code>[albums-genre genre="punk"]</code>. The default number of albums to get from a genere is 5. You can change this by adding the same <code>albums="3"</code> like the recent-albums shortcode. i.e <code>[albums-genre genre="edm" albums="2"]</code>. 
