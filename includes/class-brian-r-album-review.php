@@ -408,19 +408,22 @@ function showAlbumReview($atts){
 	extract(shortcode_atts(array(
 		'album' => 1,
 	 ), $atts));
-	 $album_content .= '<div class="album-review"><div class="album-cover-cont">
-		 <img src="' . get_field('album_art', $album).'">
-	 </div>
+	 $album_content .= '<div class="album-review"><div class="album-cover-cont">';
+	 if(get_field('album_art', $album)){
+		$album_content .= '<img src="' . get_field('album_art', $album).'">';
+	 }
+	 $album_content .= '</div>
 	 <div class="album-details">
 		 <h3 class="album-name-author"><strong>' . get_the_title($album) .'</strong>';
-		 if(get_field('artist', $album)):
+		 if(get_field('artist', $album)){
 			$album_content .= '<br>by ' . get_field('artist', $album);
-		  endif; 
+		 }
 		  $album_content .= '</h3>';
 		  $genres = get_the_terms($album, 'category');
+		  if(!empty($genres)){
 		 $album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
 		<div class="album-rating">';
-
+		}
 		 $rating = get_field('rating', $album);
 
 		 if ( $rating ) {
