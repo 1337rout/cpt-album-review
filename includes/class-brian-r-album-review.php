@@ -130,23 +130,23 @@ class Album_Review {
 	 */
 	function album_review_cpt_add() {
 		$labels = [
-			"name" => __( "Album Reviews", "twentytwenty" ),
-			"singular_name" => __( "Album Review", "twentytwenty" ),
-			'menu_name'           => __( 'Album Review', 'twentytwenty' ),
-			'parent_item_colon'   => __( 'Parent Album Reviews', 'twentytwenty' ),
-			'all_items'           => __( 'All Album Review', 'twentytwenty' ),
-			'view_item'           => __( 'View Album Review', 'twentytwenty' ),
-			'add_new_item'        => __( 'Add New Album Review', 'twentytwenty' ),
-			'add_new'             => __( 'Add New', 'twentytwenty' ),
-			'edit_item'           => __( 'Edit Album Review', 'twentytwenty' ),
-			'update_item'         => __( 'Update Album Review', 'twentytwenty' ),
-			'search_items'        => __( 'Search Album Review', 'twentytwenty' ),
-			'not_found'           => __( 'Not Found', 'twentytwenty' ),
-			'not_found_in_trash'  => __( 'Not found in Trash', 'twentytwenty' ),
+			"name" => __( "Album Reviews", $this->Album_Review ),
+			"singular_name" => __( "Album Review", $this->Album_Review ),
+			'menu_name'           => __( 'Album Review', $this->Album_Review ),
+			'parent_item_colon'   => __( 'Parent Album Reviews', $this->Album_Review ),
+			'all_items'           => __( 'All Album Review', $this->Album_Review ),
+			'view_item'           => __( 'View Album Review', $this->Album_Review ),
+			'add_new_item'        => __( 'Add New Album Review', $this->Album_Review ),
+			'add_new'             => __( 'Add New', $this->Album_Review ),
+			'edit_item'           => __( 'Edit Album Review', $this->Album_Review ),
+			'update_item'         => __( 'Update Album Review', $this->Album_Review ),
+			'search_items'        => __( 'Search Album Review', $this->Album_Review ),
+			'not_found'           => __( 'Not Found', $this->Album_Review ),
+			'not_found_in_trash'  => __( 'Not found in Trash', $this->Album_Review ),
 		];
 
 		$args = [
-			"label" => __( "Album Reviews", "twentytwenty" ),
+			"label" => __( "Album Reviews", $this->Album_Review ),
 			"labels" => $labels,
 			"description" => "Loved an album? Hated it?
 				Review it, post it, share it. 
@@ -197,12 +197,12 @@ class Album_Review {
 		 */
 
 		$labels = [
-			"name" => __( "Genres", "twentytwenty" ),
-			"singular_name" => __( "Genre", "twentytwenty" ),
+			"name" => __( "Genres", $this->Album_Review ),
+			"singular_name" => __( "Genre", $this->Album_Review ),
 		];
 
 		$args = [
-			"label" => __( "Genres", "twentytwenty" ),
+			"label" => __( "Genres", $this->Album_Review ),
 			"labels" => $labels,
 			"public" => true,
 			"publicly_queryable" => true,
@@ -267,7 +267,7 @@ class Album_Review {
 	  add_filter( 'manage_album_review_posts_columns', 'set_custom_edit_album_columns' );
 	  function set_custom_edit_album_columns($columns) {
 		  unset( $columns['date'] );
-		  $columns['shortcode'] = __( 'Shortcode', 'your_text_domain' );
+		  $columns['shortcode'] = __( 'Shortcode', $this->Album_Review );
 	  
 		  return $columns;
 	  }
