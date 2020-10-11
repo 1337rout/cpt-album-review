@@ -108,7 +108,7 @@ class Album_Review_Admin {
 
 }
 
-class AlbumReviewSettings {
+class BrAlbumReviewSettings {
 	private $album_review_settings_options;
 
 	public function __construct() {
@@ -188,4 +188,4 @@ class AlbumReviewSettings {
 	}
 
 }
-$album_review_settings = new AlbumReviewSettings();
+$album_review_settings = new BrAlbumReviewSettings();
