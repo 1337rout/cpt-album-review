@@ -8,6 +8,7 @@
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
+    margin: 10px 0px;
   }
   .album-details{
     width: 60%;
@@ -33,4 +34,11 @@
   
   .star-rating svg:not(:last-child) {
     margin-right: 3px;
+  }
+  .genre-title{
+    text-transform: capitalize;
+  }
+  .album-genre{
+    font-size: 16px;
+    font-weight: 400;
   }

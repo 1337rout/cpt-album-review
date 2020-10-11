@@ -28,7 +28,7 @@ Below you will find some information on how to setup and use this plugin in a lo
 - Start entering the title of the album you would like to review. 
 - You will get a populated list from Last.FM for the album you are typing in
 - Select the album you would like to review
-- Enter the Genre as well as the rating you would like to give this album. 
+- Enter the Genre as well as the rating you would like to give this album. You can add multiple genres here. Also, genre's you have added in the past will show up as checkboxes. 
 - Click Publish
 - You will now have a shortcode above the Publish Metabox that you can copy and past anywhere you would like. 
 - This shortcode can also be found in Album Review > All Album Reviews

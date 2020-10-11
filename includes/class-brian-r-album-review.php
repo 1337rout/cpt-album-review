@@ -455,7 +455,6 @@ class Album_Review {
 			}
 
 			$album_content .= '</div>
-			</div>
 			</div>';
 		return $album_content;
 	}
@@ -474,10 +473,10 @@ class Album_Review {
 		);
 		$albums = new WP_Query($args);
 		if ( $albums->have_posts() ) {
+			$album_content .= '<div class=all-albums"><h3>Recent Album Reviews</h3>';
 			while ( $albums->have_posts() ) {
 				$albums->the_post();
 				$album = get_the_ID();
-				$album_content .= '<div class=all-albums">';
 
 				$album_content .= '<div class="album-review"><div class="album-cover-cont">';
 				if(get_field('album_art', $album)){
@@ -490,7 +489,7 @@ class Album_Review {
 						$album_content .= '<br>by ' . get_field('artist', $album);
 					}
 					$album_content .= '</h3>';
-					$genres = get_the_terms($album, 'category');
+					$genres = get_the_terms($album, 'genre');
 					if(!empty($genres)){
 					$album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
 					<div class="album-rating">';
@@ -525,8 +524,7 @@ class Album_Review {
 					}
 
 					$album_content .= '</div>
-									</div>
-								</div>';
+									</div>';
 					}
 				$album_content .= '</div>';
 				}
@@ -557,10 +555,10 @@ class Album_Review {
 		);
 		$albums = new WP_Query($args);
 		if ( $albums->have_posts() ) {
+			$album_content .= '<div class=all-albums"><h3 class="genre-title">Recent ' . $genre . ' Album Reviews';
 			while ( $albums->have_posts() ) {
 				$albums->the_post();
 				$album = get_the_ID();
-				$album_content .= '<div class=all-albums">';
 
 				$album_content .= '<div class="album-review"><div class="album-cover-cont">';
 				if(get_field('album_art', $album)){
@@ -573,7 +571,7 @@ class Album_Review {
 						$album_content .= '<br>by ' . get_field('artist', $album);
 					}
 					$album_content .= '</h3>';
-					$genres = get_the_terms($album, 'category');
+					$genres = get_the_terms($album, 'genre');
 					if(!empty($genres)){
 					$album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
 					<div class="album-rating">';
@@ -608,8 +606,7 @@ class Album_Review {
 					}
 
 					$album_content .= '</div>
-									</div>
-								</div>';
+									</div>';
 				}
 			$album_content .= '</div>';
 			}
