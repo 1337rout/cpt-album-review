@@ -210,7 +210,7 @@ function cptui_register_my_taxes_genre() {
 		"public" => true,
 		"publicly_queryable" => true,
 		"hierarchical" => false,
-		"show_ui" => true,
+		"show_ui" => false,
 		"show_in_menu" => true,
 		"show_in_nav_menus" => true,
 		"query_var" => true,
@@ -236,6 +236,53 @@ add_action( 'init', 'cptui_register_my_taxes_genre' );
 		add_shortcode('album-review', 'showAlbumReview');
 	 }
 	 add_action( 'init', 'register_shortcodes');
+
+	 add_action( 'load-post.php', 'album_review_meta_boxes_setup' );
+
+	 function album_review_meta_boxes_setup() {
+	
+		add_action( 'add_meta_boxes', 'album_review_add_post_meta_boxes' );
+	  }
+	
+	 function album_review_add_post_meta_boxes() {
+	
+		add_meta_box(
+		  'album-review-shortcode', 
+		  esc_html__( 'Shortcode', 'example' ),
+		  'album_review_shortcode',
+		  'album_review',
+		  'side',
+		  'high'
+		);
+	  }
+	  
+	/* Display the post meta box. */
+	function album_review_shortcode( $post ) { ?>
+		<code>
+		  <?php echo '[album-review album="' . get_the_ID() . '"]';
+		  ?>
+		</code>
+	  <?php }
+
+	  /* Setup column on CPT admin of view all. */
+	  add_filter( 'manage_album_review_posts_columns', 'set_custom_edit_album_columns' );
+	  function set_custom_edit_album_columns($columns) {
+		  unset( $columns['date'] );
+		  $columns['shortcode'] = __( 'Shortcode', 'your_text_domain' );
+	  
+		  return $columns;
+	  }
+
+	  add_action( 'manage_album_review_posts_custom_column' , 'custom_shortcode_column', 10, 2 );
+function custom_shortcode_column( $column, $post_id ) {
+    switch ( $column ) {
+
+        case 'shortcode' :
+            echo '[album-review album="' . $post_id . '"]';
+            break;
+
+    }
+}
 
 
 		/**
@@ -409,5 +456,3 @@ function showAlbumReview($atts){
  return $album_content;
 
  }
-
-
