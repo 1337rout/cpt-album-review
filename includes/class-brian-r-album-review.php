@@ -234,6 +234,8 @@ add_action( 'init', 'cptui_register_my_taxes_genre' );
 
 	 function register_shortcodes(){
 		add_shortcode('album-review', 'showAlbumReview');
+		add_shortcode('recent-albums', 'showAlbumReviewRecent');
+		add_shortcode('albums-genre', 'showAlbumReviewGenre');
 	 }
 	 add_action( 'init', 'register_shortcodes');
 
@@ -403,7 +405,6 @@ function custom_shortcode_column( $column, $post_id ) {
 
 }
 function showAlbumReview($atts){
-	global $post;
 	$album_content ='';
 	extract(shortcode_atts(array(
 		'album' => 1,
@@ -456,6 +457,154 @@ function showAlbumReview($atts){
 	$album_content .= '</div>
 	 </div>
  </div>';
+ return $album_content;
+
+ }
+ function showAlbumReviewRecent($atts){
+	$album_content ='';
+	extract(shortcode_atts(array(
+		'albums' => 1,
+	 ), $atts));
+	 $args = array(
+		 'post_type' => 'album_review',
+		 'posts_per_page' => $albums,
+	 );
+	 $albums = new WP_Query($args);
+	 if ( $albums->have_posts() ) {
+		while ( $albums->have_posts() ) {
+			$albums->the_post();
+			$album = get_the_ID();
+		 $album_content .= '<div class=all-albums">';
+
+	 $album_content .= '<div class="album-review"><div class="album-cover-cont">';
+	 if(get_field('album_art', $album)){
+		$album_content .= '<img src="' . get_field('album_art', $album).'">';
+	 }
+	 $album_content .= '</div>
+	 <div class="album-details">
+		 <h3 class="album-name-author"><strong>' . get_the_title($album) .'</strong>';
+		 if(get_field('artist', $album)){
+			$album_content .= '<br>by ' . get_field('artist', $album);
+		 }
+		  $album_content .= '</h3>';
+		  $genres = get_the_terms($album, 'category');
+		  if(!empty($genres)){
+		 $album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
+		<div class="album-rating">';
+		}
+		 $rating = get_field('rating', $album);
+
+		 if ( $rating ) {
+			 $average_stars = round( $rating * 2 ) / 2;
+		 
+			 $drawn = 5;
+
+			 $album_content .= '<div class="star-rating">';
+			 
+			 // full stars.
+			 for ( $i = 0; $i < floor( $average_stars ); $i++ ) {
+				 $drawn--;
+				 $album_content .= '<svg aria-hidden="true" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>';
+			 }
+
+			 // half stars.
+			 if ( $rating - floor( $average_stars ) === 0.5 ) {
+				 $drawn--;
+				 $album_content .= '<svg aria-hidden="true" data-prefix="fas" data-icon="star-half-alt" class="svg-inline--fa fa-star-half-alt fa-w-17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 536 512"><path fill="currentColor" d="M508.55 171.51L362.18 150.2 296.77 17.81C290.89 5.98 279.42 0 267.95 0c-11.4 0-22.79 5.9-28.69 17.81l-65.43 132.38-146.38 21.29c-26.25 3.8-36.77 36.09-17.74 54.59l105.89 103-25.06 145.48C86.98 495.33 103.57 512 122.15 512c4.93 0 10-1.17 14.87-3.75l130.95-68.68 130.94 68.7c4.86 2.55 9.92 3.71 14.83 3.71 18.6 0 35.22-16.61 31.66-37.4l-25.03-145.49 105.91-102.98c19.04-18.5 8.52-50.8-17.73-54.6zm-121.74 123.2l-18.12 17.62 4.28 24.88 19.52 113.45-102.13-53.59-22.38-11.74.03-317.19 51.03 103.29 11.18 22.63 25.01 3.64 114.23 16.63-82.65 80.38z"/></svg>';
+			 }
+
+			 // empty stars.
+			 for ( $i = 0; $i < $drawn; $i++ ) {
+				$album_content .= '<svg aria-hidden="true" data-prefix="far" data-icon="star" class="svg-inline--fa fa-star fa-w-18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"/></svg>';
+			 }
+
+			 $album_content .= '</div>';
+		 }
+
+	$album_content .= '</div>
+	 </div>
+ </div>';
+		}
+		$album_content .= '</div>';
+	}
+	wp_reset_postdata();
+ return $album_content;
+
+ }
+ function showAlbumReviewGenre($atts){
+	$album_content ='';
+	extract(shortcode_atts(array(
+		'genre' => 'rock',
+	 ), $atts));
+	 $args = array(
+		 'post_type' => 'album_review',
+		 'tax_query' => array(
+			array(
+			 'taxonomy' => 'genre',
+			 'field' => 'slug',
+			 'terms' => $genre,
+			),
+		),
+	 );
+	 $albums = new WP_Query($args);
+	 if ( $albums->have_posts() ) {
+		while ( $albums->have_posts() ) {
+			$albums->the_post();
+			$album = get_the_ID();
+		 $album_content .= '<div class=all-albums">';
+
+	 $album_content .= '<div class="album-review"><div class="album-cover-cont">';
+	 if(get_field('album_art', $album)){
+		$album_content .= '<img src="' . get_field('album_art', $album).'">';
+	 }
+	 $album_content .= '</div>
+	 <div class="album-details">
+		 <h3 class="album-name-author"><strong>' . get_the_title($album) .'</strong>';
+		 if(get_field('artist', $album)){
+			$album_content .= '<br>by ' . get_field('artist', $album);
+		 }
+		  $album_content .= '</h3>';
+		  $genres = get_the_terms($album, 'category');
+		  if(!empty($genres)){
+		 $album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
+		<div class="album-rating">';
+		}
+		 $rating = get_field('rating', $album);
+
+		 if ( $rating ) {
+			 $average_stars = round( $rating * 2 ) / 2;
+		 
+			 $drawn = 5;
+
+			 $album_content .= '<div class="star-rating">';
+			 
+			 // full stars.
+			 for ( $i = 0; $i < floor( $average_stars ); $i++ ) {
+				 $drawn--;
+				 $album_content .= '<svg aria-hidden="true" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>';
+			 }
+
+			 // half stars.
+			 if ( $rating - floor( $average_stars ) === 0.5 ) {
+				 $drawn--;
+				 $album_content .= '<svg aria-hidden="true" data-prefix="fas" data-icon="star-half-alt" class="svg-inline--fa fa-star-half-alt fa-w-17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 536 512"><path fill="currentColor" d="M508.55 171.51L362.18 150.2 296.77 17.81C290.89 5.98 279.42 0 267.95 0c-11.4 0-22.79 5.9-28.69 17.81l-65.43 132.38-146.38 21.29c-26.25 3.8-36.77 36.09-17.74 54.59l105.89 103-25.06 145.48C86.98 495.33 103.57 512 122.15 512c4.93 0 10-1.17 14.87-3.75l130.95-68.68 130.94 68.7c4.86 2.55 9.92 3.71 14.83 3.71 18.6 0 35.22-16.61 31.66-37.4l-25.03-145.49 105.91-102.98c19.04-18.5 8.52-50.8-17.73-54.6zm-121.74 123.2l-18.12 17.62 4.28 24.88 19.52 113.45-102.13-53.59-22.38-11.74.03-317.19 51.03 103.29 11.18 22.63 25.01 3.64 114.23 16.63-82.65 80.38z"/></svg>';
+			 }
+
+			 // empty stars.
+			 for ( $i = 0; $i < $drawn; $i++ ) {
+				$album_content .= '<svg aria-hidden="true" data-prefix="far" data-icon="star" class="svg-inline--fa fa-star fa-w-18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"/></svg>';
+			 }
+
+			 $album_content .= '</div>';
+		 }
+
+	$album_content .= '</div>
+	 </div>
+ </div>';
+		}
+		$album_content .= '</div>';
+	}
+	wp_reset_postdata();
  return $album_content;
 
  }
