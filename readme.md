@@ -16,7 +16,7 @@ Below you will find some information on how to setup and use this plugin in a lo
 
 ---
 
-## 🚀  `Activate and Setup`
+## 🚀  `Activate and Setup` 
 - Go to Plugins > Installed Plugins > Album Review - A Gutenberg Block > Activate
 - Go to Settings > Album Review Settings and enter your Last.FM API Key. Click the "Save Changes" button after entering your API key. 
 
