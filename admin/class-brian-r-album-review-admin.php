@@ -73,7 +73,7 @@ class Album_Review_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->album_review, plugin_dir_url( __FILE__ ) . 'css/brian-r-brian-album-review-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->album_review, plugin_dir_url( __FILE__ ) . 'css/brian-r-album-review-admin.css', array(), $this->version, 'all' );
 
 	}
 
