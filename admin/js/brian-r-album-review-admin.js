@@ -4,7 +4,6 @@
 		let timeout;
 		const { apiKey } = brAlbum;
 		if(apiKey){
-			console.log(apiKey);
 			$('#titlediv').append('<div class="lastFmAlbums"></div>');
 			$('.lastFmAlbums').hide();
 			$('#title').keyup(function(){

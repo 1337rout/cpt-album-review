@@ -95,8 +95,8 @@ class Album_Review_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( 'brian_album_review' == get_post_type() ) {
-		wp_register_script( $this->album_review, plugin_dir_url( __FILE__ ) . 'js/brian-r-brian-album-review-admin.js', array( 'jquery' ), $this->version, false );
+		if ( 'album_review' == get_post_type() ) {
+		wp_register_script( $this->album_review, plugin_dir_url( __FILE__ ) . 'js/brian-r-album-review-admin.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script( $this->album_review, 'brAlbum',
 		[
 			'apiKey' => get_option( 'brian_album_review_settings_option_name' )['brian_last_fm_api_key_0'],
