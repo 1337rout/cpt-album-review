@@ -130,23 +130,23 @@ class Album_Review {
 	 */
 	function album_review_cpt_add() {
 		$labels = [
-			"name" => __( "Album Reviews", $this->Album_Review ),
-			"singular_name" => __( "Album Review", $this->Album_Review ),
-			'menu_name'           => __( 'Album Review', $this->Album_Review ),
-			'parent_item_colon'   => __( 'Parent Album Reviews', $this->Album_Review ),
-			'all_items'           => __( 'All Album Review', $this->Album_Review ),
-			'view_item'           => __( 'View Album Review', $this->Album_Review ),
-			'add_new_item'        => __( 'Add New Album Review', $this->Album_Review ),
-			'add_new'             => __( 'Add New', $this->Album_Review ),
-			'edit_item'           => __( 'Edit Album Review', $this->Album_Review ),
-			'update_item'         => __( 'Update Album Review', $this->Album_Review ),
-			'search_items'        => __( 'Search Album Review', $this->Album_Review ),
-			'not_found'           => __( 'Not Found', $this->Album_Review ),
-			'not_found_in_trash'  => __( 'Not found in Trash', $this->Album_Review ),
+			"name" => __( "Album Reviews", 'brian-r-album-review' ),
+			"singular_name" => __( "Album Review", 'brian-r-album-review' ),
+			'menu_name'           => __( 'Album Review', 'brian-r-album-review' ),
+			'parent_item_colon'   => __( 'Parent Album Reviews', 'brian-r-album-review' ),
+			'all_items'           => __( 'All Album Review', 'brian-r-album-review' ),
+			'view_item'           => __( 'View Album Review', 'brian-r-album-review' ),
+			'add_new_item'        => __( 'Add New Album Review', 'brian-r-album-review' ),
+			'add_new'             => __( 'Add New', 'brian-r-album-review' ),
+			'edit_item'           => __( 'Edit Album Review', 'brian-r-album-review' ),
+			'update_item'         => __( 'Update Album Review', 'brian-r-album-review' ),
+			'search_items'        => __( 'Search Album Review', 'brian-r-album-review' ),
+			'not_found'           => __( 'Not Found', 'brian-r-album-review' ),
+			'not_found_in_trash'  => __( 'Not found in Trash', 'brian-r-album-review' ),
 		];
 
 		$args = [
-			"label" => __( "Album Reviews", $this->Album_Review ),
+			"label" => __( "Album Reviews", 'brian-r-album-review' ),
 			"labels" => $labels,
 			"description" => "Loved an album? Hated it?
 				Review it, post it, share it. 
@@ -197,12 +197,12 @@ class Album_Review {
 		 */
 
 		$labels = [
-			"name" => __( "Genres", $this->Album_Review ),
-			"singular_name" => __( "Genre", $this->Album_Review ),
+			"name" => __( "Genres", 'brian-r-album-review' ),
+			"singular_name" => __( "Genre", 'brian-r-album-review' ),
 		];
 
 		$args = [
-			"label" => __( "Genres", $this->Album_Review ),
+			"label" => __( "Genres", 'brian-r-album-review' ),
 			"labels" => $labels,
 			"public" => true,
 			"publicly_queryable" => true,
@@ -267,7 +267,7 @@ class Album_Review {
 	  add_filter( 'manage_album_review_posts_columns', 'set_custom_edit_album_columns' );
 	  function set_custom_edit_album_columns($columns) {
 		  unset( $columns['date'] );
-		  $columns['shortcode'] = __( 'Shortcode', $this->Album_Review );
+		  $columns['shortcode'] = __( 'Shortcode', 'brian-r-album-review' );
 	  
 		  return $columns;
 	  }
