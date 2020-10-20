@@ -410,14 +410,14 @@ class Album_Review {
 			'album' => 1,
 		), $atts));
 		$album_content .= '<div class="album-review"><div class="album-cover-cont">';
-		if(get_field('album_art', $album)){
-			$album_content .= '<img src="' . get_field('album_art', $album).'">';
+		if(get_post_meta($album,'album_art')){
+			$album_content .= '<img src="' . get_post_meta($album,'album_art').'">';
 		}
 		$album_content .= '</div>
 		<div class="album-details">
 			<h3 class="album-name-author"><strong>' . get_the_title($album) .'</strong>';
-			if(get_field('artist', $album)){
-				$album_content .= '<br>by ' . get_field('artist', $album);
+			if(get_post_meta($album,'artist')){
+				$album_content .= '<br>by ' . get_post_meta($album,'artist');
 			}
 			$album_content .= '</h3>';
 			$genres = get_the_terms($album, 'category');
@@ -425,7 +425,7 @@ class Album_Review {
 			$album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
 			<div class="album-rating">';
 			}
-			$rating = get_field('rating', $album);
+			$rating = get_post_meta($album,'rating');
 
 			if ( $rating ) {
 				$average_stars = round( $rating * 2 ) / 2;
@@ -479,14 +479,14 @@ class Album_Review {
 				$album = get_the_ID();
 
 				$album_content .= '<div class="album-review"><div class="album-cover-cont">';
-				if(get_field('album_art', $album)){
-					$album_content .= '<img src="' . get_field('album_art', $album).'">';
+				if(get_post_meta($album,'album_art')){
+					$album_content .= '<img src="' . get_post_meta($album,'album_art').'">';
 				}
 				$album_content .= '</div>
 				<div class="album-details">
 					<h3 class="album-name-author"><strong>' . get_the_title($album) .'</strong>';
-					if(get_field('artist', $album)){
-						$album_content .= '<br>by ' . get_field('artist', $album);
+					if(get_post_meta($album,'artist')){
+						$album_content .= '<br>by ' . get_post_meta($album,'artist');
 					}
 					$album_content .= '</h3>';
 					$genres = get_the_terms($album, 'genre');
@@ -494,7 +494,7 @@ class Album_Review {
 					$album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
 					<div class="album-rating">';
 					}
-					$rating = get_field('rating', $album);
+					$rating = get_post_meta($album,'rating');
 
 					if ( $rating ) {
 						$average_stars = round( $rating * 2 ) / 2;
@@ -561,14 +561,14 @@ class Album_Review {
 				$album = get_the_ID();
 
 				$album_content .= '<div class="album-review"><div class="album-cover-cont">';
-				if(get_field('album_art', $album)){
-					$album_content .= '<img src="' . get_field('album_art', $album).'">';
+				if(get_post_meta($album,'album_art')){
+					$album_content .= '<img src="' . get_post_meta($album,'album_art').'">';
 				}
 				$album_content .= '</div>
 				<div class="album-details">
 					<h3 class="album-name-author"><strong>' . get_the_title($album) .'</strong>';
-					if(get_field('artist', $album)){
-						$album_content .= '<br>by ' . get_field('artist', $album);
+					if(get_post_meta($album,'artist')){
+						$album_content .= '<br>by ' . get_post_meta($album,'artist');
 					}
 					$album_content .= '</h3>';
 					$genres = get_the_terms($album, 'genre');
@@ -576,7 +576,7 @@ class Album_Review {
 					$album_content .= '<p class="album-genre">'. join(', ', wp_list_pluck($genres, 'name')). '</p>
 					<div class="album-rating">';
 					}
-					$rating = get_field('rating', $album);
+					$rating = get_post_meta($album,'rating');
 
 					if ( $rating ) {
 						$average_stars = round( $rating * 2 ) / 2;
